@@ -1,0 +1,5 @@
+in jni file: pocketsphinx.i; sphinxbase(same with testasr); pocketsphinx.h; pocketsphinx.c
+pocketsphinx.h and pockersphinx.c add the ps_decoder_test function
+
+so in the pocketsphinx.i only wrap the ps_decoder_test function 
+in the sphinxbase no change ,still wrap config class
