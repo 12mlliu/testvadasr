@@ -9,5 +9,6 @@
 package com.midea.VadAsr;
 
 public class PocketSphinxJNI {
-  public final static native String decoderTest(long jarg1, Config jarg1_, short[] jarg2, long jarg3);
+  public final static native boolean EnvEnergy(short[] jarg1);
+  public final static native String VoiceDetect(short[] jarg1, long jarg2, Config jarg2_);
 }

@@ -1,6 +1,7 @@
 /home/mlliu/sphinx/testvadasr/obj/local/arm64-v8a/objs/pocketsphinx_wrap/pocketsphinx_wrap.o: \
   /home/mlliu/sphinx/testvadasr/jni/pocketsphinx_wrap.c \
-  ../../pocketsphinx/include/pocketsphinx.h \
+  /home/mlliu/sphinx/testvadasr/jni/Vad.h \
+  /home/mlliu/sphinx/testvadasr/jni/pocketsphinx.h \
   ../../sphinxbase/include/sphinxbase/cmd_ln.h \
   ../../sphinxbase/include/sphinxbase/sphinxbase_export.h \
   ../../sphinxbase/include/sphinxbase/prim_type.h \
@@ -25,7 +26,9 @@
   ../../sphinxbase/include/sphinxbase/hash_table.h \
   ../../sphinxbase/include/sphinxbase/listelem_alloc.h
 
-../../pocketsphinx/include/pocketsphinx.h:
+/home/mlliu/sphinx/testvadasr/jni/Vad.h:
+
+/home/mlliu/sphinx/testvadasr/jni/pocketsphinx.h:
 
 ../../sphinxbase/include/sphinxbase/cmd_ln.h:
 

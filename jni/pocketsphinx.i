@@ -23,7 +23,7 @@ typedef int bool;
 #endif
 
 
-#include <pocketsphinx.h>
+#include "Vad.h"
 
 typedef cmd_ln_t Config;
 
@@ -31,9 +31,18 @@ typedef cmd_ln_t Config;
 %}
 
 %inline %{
+/*
 char const *decoder_test(Config* config,const int16 *SDATA, size_t NSAMP) {
         char const *hypstr;
         hypstr = ps_decoder_test(config,SDATA, NSAMP);
+        return hypstr;
+        }*/
+bool EnvEnergy(const int16*SDATA){
+        return  EnvEnergyDetect(SDATA);
+        }
+char const *VoiceDetect(const int16 *SDATA,Config *config){
+        char const *hypstr;
+        hypstr = VoiceDetectMain(SDATA,config);
         return hypstr;
         }
 %}

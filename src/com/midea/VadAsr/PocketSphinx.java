@@ -9,8 +9,12 @@
 package com.midea.VadAsr;
 
 public class PocketSphinx {
-  public static String decoderTest(Config config, short[] SDATA, long NSAMP) {
-    return PocketSphinxJNI.decoderTest(Config.getCPtr(config), config, SDATA, NSAMP);
+  public static boolean EnvEnergy(short[] SDATA) {
+    return PocketSphinxJNI.EnvEnergy(SDATA);
+  }
+
+  public static String VoiceDetect(short[] SDATA, Config config) {
+    return PocketSphinxJNI.VoiceDetect(SDATA, Config.getCPtr(config), config);
   }
 
 }

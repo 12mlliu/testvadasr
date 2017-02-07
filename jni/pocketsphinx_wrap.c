@@ -832,16 +832,25 @@ typedef int bool;
 #endif
 
 
-#include <pocketsphinx.h>
+#include "Vad.h"
 
 typedef cmd_ln_t Config;
 
 
 
 
+/*
 char const *decoder_test(Config* config,const int16 *SDATA, size_t NSAMP) {
         char const *hypstr;
         hypstr = ps_decoder_test(config,SDATA, NSAMP);
+        return hypstr;
+        }*/
+bool EnvEnergy(const int16*SDATA){
+        return  EnvEnergyDetect(SDATA);
+        }
+char const *VoiceDetect(const int16 *SDATA,Config *config){
+        char const *hypstr;
+        hypstr = VoiceDetectMain(SDATA,config);
         return hypstr;
         }
 
@@ -850,24 +859,39 @@ char const *decoder_test(Config* config,const int16 *SDATA, size_t NSAMP) {
 extern "C" {
 #endif
 
-SWIGEXPORT jstring JNICALL Java_com_midea_VadAsr_PocketSphinxJNI_decoderTest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jshortArray jarg2, jlong jarg3) {
+SWIGEXPORT jboolean JNICALL Java_com_midea_VadAsr_PocketSphinxJNI_EnvEnergy(JNIEnv *jenv, jclass jcls, jshortArray jarg1) {
+  jboolean jresult = 0 ;
+  int16 *arg1 = (int16 *) 0 ;
+  jshort *jarr1 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  if (!SWIG_JavaArrayInShort(jenv, &jarr1, (short **)&arg1, jarg1)) return 0; 
+  result = (bool)EnvEnergy((int16 const *)arg1);
+  jresult = (jboolean)result; 
+  SWIG_JavaArrayArgoutShort(jenv, jarr1, (short *)arg1, jarg1); 
+  free(arg1); 
+  return jresult;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_com_midea_VadAsr_PocketSphinxJNI_VoiceDetect(JNIEnv *jenv, jclass jcls, jshortArray jarg1, jlong jarg2, jobject jarg2_) {
   jstring jresult = 0 ;
-  Config *arg1 = (Config *) 0 ;
-  int16 *arg2 = (int16 *) 0 ;
-  size_t arg3 ;
-  jshort *jarr2 ;
+  int16 *arg1 = (int16 *) 0 ;
+  Config *arg2 = (Config *) 0 ;
+  jshort *jarr1 ;
   char *result = 0 ;
   
   (void)jenv;
   (void)jcls;
-  (void)jarg1_;
-  arg1 = *(Config **)&jarg1; 
-  if (!SWIG_JavaArrayInShort(jenv, &jarr2, (short **)&arg2, jarg2)) return 0; 
-  arg3 = (size_t)jarg3; 
-  result = (char *)decoder_test(arg1,(int16 const *)arg2,arg3);
+  (void)jarg2_;
+  if (!SWIG_JavaArrayInShort(jenv, &jarr1, (short **)&arg1, jarg1)) return 0; 
+  arg2 = *(Config **)&jarg2; 
+  result = (char *)VoiceDetect((int16 const *)arg1,arg2);
   if (result) jresult = (*jenv)->NewStringUTF(jenv, (const char *)result);
-  SWIG_JavaArrayArgoutShort(jenv, jarr2, (short *)arg2, jarg2); 
-  free(arg2); 
+  SWIG_JavaArrayArgoutShort(jenv, jarr1, (short *)arg1, jarg1); 
+  free(arg1); 
   return jresult;
 }
 

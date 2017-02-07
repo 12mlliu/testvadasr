@@ -58,12 +58,14 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 	private void onStartRecord() {
 		//Config c = Decoder.defaultConfig();
-		Config c  = new Config();
-        c.setString("-hmm", "/mnt/sdcard/lml/cn-model/tdt_sc_8k");
-        c.setString("-lm", "/mnt/sdcard/lml/cn-model/ask.lm.DMP");
-        c.setString("-dict", "/mnt/sdcard/lml/cn-model/ask.dic");
-        c.setFloat("-samprate",8000);
+		Config config  = new Config();
+        config.setString("-hmm", "/mnt/sdcard/lml/cn-model/tdt_sc_8k");
+        config.setString("-lm", "/mnt/sdcard/lml/cn-model/ask.lm.DMP");
+        config.setString("-dict", "/mnt/sdcard/lml/cn-model/ask.dic");
+        config.setFloat("-samprate",8000);
         
+        boolean isEnvEnergyDetect=false;
+        String isEndFlag;
         //Decoder d = new Decoder(c);
 		
 
@@ -78,7 +80,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		//Decoder d = new Decoder();
         //d.startUtt();
         //d.setRawdataSize(300000);
-        /*byte[] b = new byte[4096];
+        byte[] b = new byte[2048];
         int nbytes;
         try {
 			while ((nbytes = ais.read(b)) >= 0) {
@@ -86,17 +88,30 @@ public class MainActivity extends Activity implements OnClickListener {
 			    bb.order(ByteOrder.LITTLE_ENDIAN);
 			    short[] s = new short[nbytes/2];
 			    bb.asShortBuffer().get(s);
-			    //System.out.println(s);
-			    //d.processRaw(s, nbytes/2, false, false);
-			    PocketSphinx.decoderTest(c,s,nbytes);
-			    System.out.println(PocketSphinx.decoderTest(c,s,nbytes));
+			    if(!isEnvEnergyDetect){
+			    	isEnvEnergyDetect=PocketSphinx.EnvEnergy(s);
+			    	//System.out.println("+++INFO: isEnvEnergyDetect is doing!");
+			    	//System.out.println("+++INFO: isEnvEnergyDetect is "+isEnvEnergyDetect);
+			    }
+					
+				if(isEnvEnergyDetect)
+				{
+					isEndFlag=PocketSphinx.VoiceDetect(s,config);
+					System.out.println("+++INFO: isEndFlag is "+isEndFlag);
+					if(!isEndFlag.equals("false"))
+					{
+					    System.out.println("+++INFO: Detected end point!");
+					    System.out.println("+++INFO: hyp is "+isEndFlag);
 			    
+					}
+				}
+					
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-		byte[] b = new byte[49152];
+		}
+		/*byte[] b = new byte[49152];
         int nbytes;
         try {
 			nbytes = ais.read(b);
@@ -113,7 +128,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
         //d.endUtt();
         //System.out.println("+++INFO: " + d.hyp().getHypstr());
 	

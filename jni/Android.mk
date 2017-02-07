@@ -151,7 +151,8 @@ LOCAL_SRC_FILES := \
   ptm_mgau.c.arm    \
   s2_semi_mgau.c.arm   \
   tmat.c     \
-  vector.c
+  vector.c	\
+  Vad.c
 
 include $(BUILD_STATIC_LIBRARY)
 
